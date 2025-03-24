@@ -6,8 +6,8 @@ L'objectif de ce projet est de créer une application complète de gestion de r�
 ## Membres de l'équipe
 - BAMOUS KAOUTAR 
 - AIT AISSA OUISSALE
--REDA 
--
+- Rida
+- Aimad
 
 ## Liste des fonctionnalités principales
 - Réservation de tables : Permet aux utilisateurs de réserver une table en fonction des disponibilités du restaurant.
