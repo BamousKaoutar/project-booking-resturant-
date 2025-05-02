@@ -1,7 +1,7 @@
-package mapper;
+package com.example.restaurant.mapper;
 
-import dto.CategorieDTO;
-import model.Categorie;
+import com.example.restaurant.dto.CategorieDTO;
+import com.example.restaurant.model.Categorie;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

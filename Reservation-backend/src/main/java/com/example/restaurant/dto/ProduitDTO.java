@@ -1,20 +1,19 @@
-package dto;
+package com.example.restaurant.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
-@NoArgsConstructor
 @AllArgsConstructor
-@Setter
+@NoArgsConstructor
 @Getter
-public class CategorieDTO {
+@Setter
+public class ProduitDTO {
     private Long id;
     private String nom;
     private String description;
-    private Integer ordre;
-    private List<ProduitDTO> produits;
+    private double prix;
+    private int ordre;  // Ordre du produit dans la catégorie
+    private Long categorieId;
 }

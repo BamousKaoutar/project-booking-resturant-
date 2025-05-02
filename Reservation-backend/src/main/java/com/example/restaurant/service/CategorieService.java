@@ -1,12 +1,14 @@
-package service;
+package com.example.restaurant.service;
 
-import dto.CategorieDTO;
-import jakarta.transaction.Transactional;
-import mapper.CategorieMapper;
-import model.Categorie;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import repository.CategorieRepository;
-import repository.ProduitRepository;
+
+import com.example.restaurant.dto.CategorieDTO;
+import com.example.restaurant.mapper.CategorieMapper;
+import com.example.restaurant.model.Categorie;
+import com.example.restaurant.repository.CategorieRepository;
+import com.example.restaurant.repository.ProduitRepository;
 
 public class CategorieService {
     @Autowired
