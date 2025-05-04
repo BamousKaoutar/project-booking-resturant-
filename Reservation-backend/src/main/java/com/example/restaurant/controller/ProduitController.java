@@ -2,28 +2,35 @@ package com.example.restaurant.controller;
 
 import com.example.restaurant.dto.ProduitDTO;
 
-import javax.validation.Valid;
 
+import com.example.restaurant.model.Produit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.example.restaurant.service.ProduitService;
 
 
+
 @RestController
-@RequestMapping("/api/produits")
+@RequestMapping("/produits")
 public class ProduitController {
 
     @Autowired
     private ProduitService produitService;
 
     @PostMapping
-    public ResponseEntity<ProduitDTO> ajouterProduit(@RequestBody @Valid ProduitDTO produitDTO) {
-        ProduitDTO createdProduit = produitService.ajouterProduit(produitDTO);
-        return ResponseEntity.ok(createdProduit);
+    public Produit createProduit(@RequestBody ProduitDTO produitDTO) {
+        return produitService.createProduit(produitDTO);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Produit> updateProduit(@PathVariable Long id, @RequestBody Produit produitDetails) {
+        Produit updatedProduit = produitService.updateProduit(id, produitDetails);
+        return ResponseEntity.ok(updatedProduit);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduit(@PathVariable Long id) {
+        produitService.deleteProduit(id);
+        return ResponseEntity.noContent().build();
+    }
 }

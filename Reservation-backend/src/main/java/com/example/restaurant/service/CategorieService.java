@@ -1,26 +1,39 @@
 package com.example.restaurant.service;
 
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.example.restaurant.dto.CategorieDTO;
-import com.example.restaurant.mapper.CategorieMapper;
 import com.example.restaurant.model.Categorie;
 import com.example.restaurant.repository.CategorieRepository;
-import com.example.restaurant.repository.ProduitRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class CategorieService {
+
     @Autowired
     private CategorieRepository categorieRepository;
 
-    @Autowired
-    private ProduitRepository produitRepository;
+    public List<Categorie> getAllCategories() {
+        return categorieRepository.findAll();
+    }
 
-    @Transactional
-    public CategorieDTO ajouterCategorieAvecProduits(CategorieDTO categorieDTO) {
-        Categorie categorie = CategorieMapper.INSTANCE.categorieDTOToCategorie(categorieDTO);
-        categorie = categorieRepository.save(categorie);
-        return CategorieMapper.INSTANCE.categorieToCategorieDTO(categorie);
+    public Categorie getCategorieById(Long id) {
+        return categorieRepository.findById(id).orElse(null);
+    }
+
+    public Categorie createCategorie(Categorie categorie) {
+        return categorieRepository.save(categorie);
+    }
+    public Categorie updateCategorie(Long id, Categorie categorieDetails) {
+        Categorie categorie = categorieRepository.findById(id).orElseThrow(() -> new RuntimeException("Categorie non trouvée"));
+        categorie.setNom(categorieDetails.getNom());
+        categorie.setDescription(categorieDetails.getDescription());
+        categorie.setOrdre(categorieDetails.getOrdre());
+        return categorieRepository.save(categorie);
+    }
+
+    public void deleteCategorie(Long id) {
+        Categorie categorie = categorieRepository.findById(id).orElseThrow(() -> new RuntimeException("Categorie non trouvée"));
+        categorieRepository.delete(categorie);
     }
 }

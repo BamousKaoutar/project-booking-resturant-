@@ -1,6 +1,7 @@
 package com.example.restaurant.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 
 @Entity
 public class Place {
