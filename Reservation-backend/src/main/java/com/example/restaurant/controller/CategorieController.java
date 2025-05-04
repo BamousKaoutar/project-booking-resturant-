@@ -20,6 +20,27 @@ public class CategorieController {
         return categorieService.getAllCategories();
     }
 
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Categorie> getCategorieById(@PathVariable Long id) {
+        Categorie categorie = categorieService.getCategorieById(id);
+        if (categorie != null) {
+            return ResponseEntity.ok(categorie);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/nom/{nom}")
+    public ResponseEntity<Categorie> getCategorieByNom(@PathVariable String nom) {
+        Categorie categorie = categorieService.getCategorieByNom(nom);
+        if (categorie != null) {
+            return ResponseEntity.ok(categorie);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
     @PostMapping
     public Categorie createCategorie(@RequestBody Categorie categorie) {
         return categorieService.createCategorie(categorie);

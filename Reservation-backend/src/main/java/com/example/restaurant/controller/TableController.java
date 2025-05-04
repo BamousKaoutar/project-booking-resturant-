@@ -1,5 +1,6 @@
 package com.example.restaurant.controller;
 
+/*
 import com.example.restaurant.model.Table;
 import com.example.restaurant.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,3 +40,4 @@ public class TableController {
         tableService.deleteTable(id);
     }
 }
+*/

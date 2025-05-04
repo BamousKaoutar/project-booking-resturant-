@@ -1,5 +1,5 @@
 package com.example.restaurant.service;
-
+/*
 import com.example.restaurant.model.Table;
 import com.example.restaurant.repository.TableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class TableService {
@@ -37,3 +38,4 @@ public class TableService {
         tableRepository.deleteById(id);
     }
 }
+*/

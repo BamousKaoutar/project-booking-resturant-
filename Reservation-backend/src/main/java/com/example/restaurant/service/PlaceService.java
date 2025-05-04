@@ -1,5 +1,5 @@
 package com.example.restaurant.service;
-
+/*
 import com.example.restaurant.model.Place;
 import com.example.restaurant.repository.PlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,3 +37,4 @@ public class PlaceService {
         placeRepository.deleteById(id);
     }
 }
+*/

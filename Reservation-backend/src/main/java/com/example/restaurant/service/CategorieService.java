@@ -18,7 +18,11 @@ public class CategorieService {
     }
 
     public Categorie getCategorieById(Long id) {
-        return categorieRepository.findById(id).orElse(null);
+        return categorieRepository.findById(id).orElse(null); // Return Categorie or null if not found
+    }
+
+    public Categorie getCategorieByNom(String nom) {
+        return categorieRepository.findByNom(nom).stream().findFirst().orElse(null);
     }
 
     public Categorie createCategorie(Categorie categorie) {

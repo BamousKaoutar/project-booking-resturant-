@@ -1,7 +1,7 @@
 package com.example.restaurant.controller;
 
 
-
+/*
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,3 +43,4 @@ public class PlaceController {
         placeService.deletePlace(id);
     }
 }
+*/
