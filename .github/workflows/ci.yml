@@ -39,7 +39,7 @@ jobs:
       run: mvn spring-boot:build-image  # Crée l'image Docker du projet Spring Boot (si applicable)
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: spring-boot-artifact
         path: target/*.jar   # Télécharge l'artefact JAR du projet
