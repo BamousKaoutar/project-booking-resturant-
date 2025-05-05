@@ -36,6 +36,9 @@ public class ProduitService {
         return produitRepository.findByNom(nom)
                 .orElseThrow(() -> new RuntimeException("Produit non trouvé avec le nom: " + nom));
     }
+    public List<Produit> getProduitsByNomCategorie(String nomCategorie) {
+        return produitRepository.findByCategorieNom(nomCategorie);
+    }
 
     public Produit createProduit(ProduitDTO produitDTO) {
 

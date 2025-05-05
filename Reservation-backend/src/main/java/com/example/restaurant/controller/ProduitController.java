@@ -39,7 +39,14 @@ public class ProduitController {
         return ResponseEntity.ok(produit);
     }
 
-
+    @GetMapping("/par-categorie")
+    public ResponseEntity<List<Produit>> getProduitsParCategorie(@RequestParam String nomCategorie) {
+        List<Produit> produits = produitService.getProduitsByNomCategorie(nomCategorie);
+        if (produits.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(produits);
+    }
 
     @PostMapping
     public ResponseEntity<Produit> createProduit(@RequestBody @Valid ProduitDTO produitDTO) {

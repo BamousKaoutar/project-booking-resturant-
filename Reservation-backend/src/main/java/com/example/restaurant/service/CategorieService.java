@@ -2,6 +2,7 @@ package com.example.restaurant.service;
 
 import com.example.restaurant.model.Categorie;
 import com.example.restaurant.repository.CategorieRepository;
+import com.example.restaurant.repository.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,9 @@ public class CategorieService {
 
     @Autowired
     private CategorieRepository categorieRepository;
+
+    @Autowired
+    private ProduitRepository produitRepository;
 
     public List<Categorie> getAllCategories() {
         return categorieRepository.findAll();
@@ -37,7 +41,17 @@ public class CategorieService {
     }
 
     public void deleteCategorie(Long id) {
-        Categorie categorie = categorieRepository.findById(id).orElseThrow(() -> new RuntimeException("Categorie non trouvée"));
+
+        Categorie categorie = categorieRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Categorie non trouvée"));
+
+        // si la catégorie contient des produits
+        if (!produitRepository.findByCategorieId(id).isEmpty()) {
+            throw new RuntimeException("Impossible de supprimer la catégorie : elle contient des produits.");
+        }
+
+        // si elle ne contient pas de produits
         categorieRepository.delete(categorie);
     }
+
 }
