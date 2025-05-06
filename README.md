@@ -31,4 +31,4 @@ L'objectif de ce projet est de créer une application complète de gestion de r�
 ## Installation
 1. Clonez ce dépôt :
    ```bash
-   git clone https://github.com/ton-utilisateur/projet-booking-restaurant.git
+   git clone https://github.com/BamousKaoutar/project-booking-resturant.git
