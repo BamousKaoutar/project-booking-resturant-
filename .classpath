@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="Reservation-backend/src/main/java/|Reservation-backend/src/test/java/" kind="src" path=""/>
+	<classpathentry kind="src" path="Reservation-backend/src/main/java"/>
+	<classpathentry kind="src" path="Reservation-backend/src/test/java"/>
+	<classpathentry kind="lib" path="C:/Users/HP/.m2/repository/org/springframework/spring-web/6.1.5/spring-web-6.1.5.jar" sourcepath="C:/Users/HP/.m2/repository/org/springframework/spring-web/6.1.5/spring-web-6.1.5-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework"/>
+			<attribute name="maven.artifactId" value="spring-web"/>
+			<attribute name="maven.version" value="6.1.5"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
