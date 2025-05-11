@@ -209,7 +209,7 @@ export default function TablesPage() {
                           <div className="mt-2 flex items-center space-x-2">
                             <Switch
                               id={`table-${table.id}`}
-                              size="sm"
+                             // size="sm"
                               checked={table.available}
                               onCheckedChange={() => toggleTableAvailability(table.id)}
                             />
