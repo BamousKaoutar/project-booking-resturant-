@@ -1,4 +1,4 @@
-// File: C:\Users\argane\Desktop\master_isi_cours\Dev Ops\project-booking-resturant-\client\app\admin\tables\page.tsx
+// File: C:\Users\argane\Desktop\master_isi_cours\Dev-Ops\project-booking-resturant-\client\app\admin\tables\page.tsx
 import * as entry from '../../../../../app/admin/tables/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
