@@ -1,11 +1,10 @@
 "use client"
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { CalendarRange, ChevronLeft, Home, LayoutDashboard, Menu, Settings, Table, Utensils } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Link } from "react-router-dom"
 
 interface SidebarProps {
   isOpen: boolean
@@ -13,32 +12,32 @@ interface SidebarProps {
 }
 
 export function Sidebar({ isOpen, onToggle }: SidebarProps) {
-  const pathname = usePathname()
-
+  //const pathname = usePathname()
+  const pathname = "/"
   const routes = [
     {
       name: "Dashboard",
-      href: "/admin",
+      to: "/admin",
       icon: LayoutDashboard,
     },
-  /*  {
+    {
       name: "Menu",
-      href: "/admin/menu",
+      to: "/admin/menu",
       icon: Menu,
-    }, */
+    }, 
     {
       name: "Tables",
-      href: "/admin/tables",
+      to: "/admin/tables",
       icon: Table,
     },
     {
       name: "Reservations",
-      href: "/admin/reservations",
+      to: "/admin/reservations",
       icon: CalendarRange,
     },
  /*   {
       name: "Settings",
-      href: "/admin/settings",
+      to: "/admin/settings",
       icon: Settings,
     }, */
   ]
@@ -69,7 +68,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
       <ScrollArea className="flex-1">
         <div className="py-4">
           <div className="px-3 mb-2">
-            <Link href="/" className="flex items-center gap-2 p-2 rounded-md hover:bg-orange-900">
+            <Link to="/" className="flex items-center gap-2 p-2 rounded-md hover:bg-orange-900">
               <Home className="h-5 w-5 text-orange-500" />
               {isOpen && <span>Back to Website</span>}
             </Link>
@@ -78,17 +77,17 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
           <nav className="space-y-1 px-3">
             {routes.map((route) => (
               <Link
-                key={route.href}
-                href={route.href}
+                key={route.to}
+                to={route.to}
                 className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-md transition-colors",
-                  pathname === route.href
+                  pathname === route.to
                     ? "bg-orange-900 text-orange-100"
                     : "hover:bg-orange-900/50 text-orange-100/80 hover:text-orange-100",
                 )}
               >
                 <route.icon
-                  className={cn("h-5 w-5", pathname === route.href ? "text-orange-500" : "text-orange-500/80")}
+                  className={cn("h-5 w-5", pathname === route.to ? "text-orange-500" : "text-orange-500/80")}
                 />
                 {isOpen && <span>{route.name}</span>}
               </Link>

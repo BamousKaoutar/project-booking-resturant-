@@ -12,7 +12,7 @@ public class Categorie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nom;
+    private String name;
     private String description;
     private Integer ordre;
 
@@ -25,12 +25,12 @@ public class Categorie {
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public String getname() {
+        return name;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setname(String name) {
+        this.name = name;
     }
 
     public String getDescription() {

@@ -41,7 +41,7 @@ public class CategorieController {
     }
 
 
-    @PostMapping
+    @PostMapping("/create")
     public Categorie createCategorie(@RequestBody Categorie categorie) {
         return categorieService.createCategorie(categorie);
     }
