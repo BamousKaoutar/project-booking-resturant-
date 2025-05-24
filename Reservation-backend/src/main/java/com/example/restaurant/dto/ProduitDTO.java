@@ -8,6 +8,16 @@ public class ProduitDTO {
     private int ordre;
     private Long categorieId;
 
+    
+
+    public ProduitDTO(Long id, String nom, String description, double prix, Long categorieId) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+        this.prix = prix;
+        this.categorieId = categorieId;
+    }
+
     // Getters and Setters
     public Long getId() {
         return id;

@@ -1,9 +1,9 @@
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Clock, MapPin, Phone, Utensils } from "lucide-react"
 import MenuHighlights from "@/components/menu-highlights"
 import TestimonialCarousel from "@/components/testimonial-carousel"
 import ReservationCta from "@/components/reservation-cta"
+import { Link } from "react-router-dom"
 
 export default function Home() {
   return (
@@ -15,24 +15,24 @@ export default function Home() {
             <span className="text-xl font-bold text-orange-500">Savoria</span>
           </div>
           <nav className="flex gap-6">
-            <Link href="/" className="text-orange-950 hover:text-orange-500 font-medium">
+            <Link to="/" className="text-orange-950 hover:text-orange-500 font-medium">
               Home
             </Link>
-            <Link href="/menu" className="text-orange-950 hover:text-orange-500 font-medium">
+            <Link to="/menu" className="text-orange-950 hover:text-orange-500 font-medium">
               Menu
             </Link>
-            <Link href="/about" className="text-orange-950 hover:text-orange-500 font-medium">
+            <Link to="/about" className="text-orange-950 hover:text-orange-500 font-medium">
               About
             </Link>
-            <Link href="/contact" className="text-orange-950 hover:text-orange-500 font-medium">
+            <Link to="/contact" className="text-orange-950 hover:text-orange-500 font-medium">
               Contact
             </Link>
           </nav>
           <div className="flex gap-3">
-            <Link href="/reservations/new">
+            <Link to="/reservations/new">
               <Button className="bg-orange-500 hover:bg-orange-600">Book a Table</Button>
             </Link>
-            <Link href="/admin">
+            <Link to="/admin">
               <Button variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50">
                 Admin
               </Button>
@@ -55,12 +55,12 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="bg-amber-600 hover:bg-amber-700 text-white">
-                <Link href="/reservation" className="flex items-center">
+                <Link to="/reservation" className="flex items-center">
                   Reserve a Table <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10">
-                <Link href="/menu">View Our Menu</Link>
+                <Link to="/menu">View Our Menu</Link>
               </Button>
             </div>
           </div>
@@ -141,7 +141,7 @@ export default function Home() {
           <MenuHighlights />
           <div className="text-center mt-12">
             <Button variant="outline" size="lg" className="border-amber-600 text-amber-600 hover:bg-amber-50">
-              <Link href="/menu">View Full Menu</Link>
+              <Link to="/menu">View Full Menu</Link>
             </Button>
           </div>
         </div>

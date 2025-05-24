@@ -13,7 +13,7 @@ public interface RestaurantTableRepository extends JpaRepository<RestaurantTable
     List<RestaurantTable> findByCapaciteGreaterThanEqual(int capaciteMin);
 
     // Vérifier la disponibilité d'une table pour un créneau spécifique
-    @Query("SELECT t FROM RestaurantTable t WHERE t.id = :tableId AND t.disponible = true " +
+/*     @Query("SELECT t FROM RestaurantTable t WHERE t.id = :tableId AND t.disponible = true " +
            "AND NOT EXISTS (" +
            "  SELECT r FROM Reservation r WHERE r.table.id = :tableId " +
            "  AND r.date = CAST(:debut AS date) " +
@@ -23,5 +23,5 @@ public interface RestaurantTableRepository extends JpaRepository<RestaurantTable
     List<RestaurantTable> checkTableAvailability(
         @Param("tableId") Long tableId,
         @Param("debut") LocalDateTime debut,
-        @Param("fin") LocalDateTime fin);
+        @Param("fin") LocalDateTime fin);  */
 }

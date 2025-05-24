@@ -1,7 +1,7 @@
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Utensils } from "lucide-react"
+import { Link } from "react-router-dom"
 
 export default function MenuPage() {
   // Sample menu data
@@ -221,21 +221,21 @@ export default function MenuPage() {
             <span className="text-xl font-bold text-orange-500">Savoria</span>
           </div>
           <nav className="flex gap-6">
-            <Link href="/" className="text-orange-950 hover:text-orange-500 font-medium">
+            <Link to="/" className="text-orange-950 hover:text-orange-500 font-medium">
               Home
             </Link>
-            <Link href="/menu" className="text-orange-500 font-medium">
+            <Link to="/menu" className="text-orange-500 font-medium">
               Menu
             </Link>
-            <Link href="/about" className="text-orange-950 hover:text-orange-500 font-medium">
+            <Link to="/about" className="text-orange-950 hover:text-orange-500 font-medium">
               About
             </Link>
-            <Link href="/contact" className="text-orange-950 hover:text-orange-500 font-medium">
+            <Link to="/contact" className="text-orange-950 hover:text-orange-500 font-medium">
               Contact
             </Link>
           </nav>
           <div>
-            <Link href="/reservations/new">
+            <Link to="/reservations/new">
               <Button className="bg-orange-500 hover:bg-orange-600">Book a Table</Button>
             </Link>
           </div>
@@ -311,7 +311,7 @@ export default function MenuPage() {
             <p className="text-lg text-orange-900 max-w-2xl mx-auto mb-8">
               Book your table now and embark on a culinary journey that will delight your senses.
             </p>
-            <Link href="/reservations/new">
+            <Link to="/reservations/new">
               <Button size="lg" className="bg-orange-500 hover:bg-orange-600">
                 Reserve Your Table
               </Button>

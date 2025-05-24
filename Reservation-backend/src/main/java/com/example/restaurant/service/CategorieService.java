@@ -26,7 +26,7 @@ public class CategorieService {
     }
 
     public Categorie getCategorieByNom(String nom) {
-        return categorieRepository.findByNom(nom).stream().findFirst().orElse(null);
+        return categorieRepository.findByName(nom).stream().findFirst().orElse(null);
     }
 
     public Categorie createCategorie(Categorie categorie) {
@@ -34,7 +34,7 @@ public class CategorieService {
     }
     public Categorie updateCategorie(Long id, Categorie categorieDetails) {
         Categorie categorie = categorieRepository.findById(id).orElseThrow(() -> new RuntimeException("Categorie non trouvée"));
-        categorie.setNom(categorieDetails.getNom());
+        categorie.setname(categorieDetails.getname());
         categorie.setDescription(categorieDetails.getDescription());
         categorie.setOrdre(categorieDetails.getOrdre());
         return categorieRepository.save(categorie);

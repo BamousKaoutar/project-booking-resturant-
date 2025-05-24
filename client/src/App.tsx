@@ -1,15 +1,22 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AdminDashboard from "./pages/admin/dashboardPage";
+import MenuPage from "./pages/admin/menuPage";
+import TablesPage from "./pages/admin/tablePage";
 
 
 const App: React.FC = () => {
   return (
-    
-              <div className="container mx-auto py-10 px-4 md:px-6">
-                <div className="flex justify-end mb-4"></div>
-                <h1 className="text-3xl font-bold text-center mb-8">Remplir Stage Form</h1>
-              </div>
-        
+    <Router>
+          <Routes>
+            
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="admin/menu" element={<MenuPage />} />
+            <Route path="admin/tables" element={<TablesPage />} /> 
+
+            
+          </Routes>
+       </Router> 
   );
 };
 

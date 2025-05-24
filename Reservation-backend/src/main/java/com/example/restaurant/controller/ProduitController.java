@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.restaurant.service.ProduitService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -48,7 +49,25 @@ public class ProduitController {
         return ResponseEntity.ok(produits);
     }
 
-    @PostMapping
+     @GetMapping("/list")
+    public ResponseEntity<List<ProduitDTO>> getAllProduitsList() {
+        List<Produit> produits = produitService.getAllProduits();
+
+        // Mapper les entités Produit vers des DTO
+        List<ProduitDTO> produitsDto = produits.stream()
+            .map(produit -> new ProduitDTO(
+                produit.getId(),
+                produit.getNom(),
+                produit.getDescription(),
+                produit.getPrix(),
+                produit.getCategorie().getId() // ou autre champ pertinent
+            ))
+            .collect(Collectors.toList());
+
+        return ResponseEntity.ok(produitsDto);
+    }
+
+    @PostMapping("/create")
     public ResponseEntity<Produit> createProduit(@RequestBody @Valid ProduitDTO produitDTO) {
         Produit produit = produitService.createProduit(produitDTO);
         return ResponseEntity.ok(produit);
@@ -64,4 +83,8 @@ public class ProduitController {
         produitService.deleteProduit(id);
         return ResponseEntity.noContent().build();
     }
+
+
+   
+
 }
