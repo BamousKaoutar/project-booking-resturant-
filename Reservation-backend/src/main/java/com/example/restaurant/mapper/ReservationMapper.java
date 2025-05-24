@@ -8,6 +8,7 @@ public class ReservationMapper {
     private static final ModelMapper modelMapper = new ModelMapper();
 
     public static ReservationDTO toDTO(Reservation reservation) {
+        System.out.println("statut  :  "+reservation.getStatut());
         return reservation != null ? modelMapper.map(reservation, ReservationDTO.class) : null;
     }
 

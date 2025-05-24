@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Place {
 
@@ -11,12 +13,13 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int numero;
-    private boolean disponible;
+   // private int numero;
+   // private boolean disponible;
     private String libelle;
     private String description;
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)  // Une place peut avoir plusieurs tables
+   // @JsonManagedReference
     private List<RestaurantTable> tables = new ArrayList<>();  // Liste des tables associées à la place
 
     private String imageUrl;
@@ -38,21 +41,7 @@ public class Place {
         this.id = id;
     }
 
-    public int getNumero() {
-        return numero;
-    }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
-    }
 
     public String getImageUrl() {
         return imageUrl;

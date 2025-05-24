@@ -14,7 +14,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Reservation> findByDate(LocalDate date);
 
     // Vérifier les conflits de réservation
-    @Query("SELECT COUNT(r) > 0 FROM Reservation r WHERE " +
+ /*    @Query("SELECT COUNT(r) > 0 FROM Reservation r WHERE " +
            "r.table.id = :tableId AND " +
            "r.date = :date AND " +
            "((r.heureDebut <= :debut AND r.heureFin > :debut) OR " +
@@ -30,5 +30,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query("SELECT r FROM Reservation r WHERE " +
            "r.client.id = :clientId AND " +
            "(r.date > CURRENT_DATE OR (r.date = CURRENT_DATE AND r.heureFin > CURRENT_TIME))")
-    List<Reservation> findUpcomingByClient(@Param("clientId") Long clientId);
+    List<Reservation> findUpcomingByClient(@Param("clientId") Long clientId); */
 }

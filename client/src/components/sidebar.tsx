@@ -52,7 +52,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
       <div className="flex items-center justify-between p-4 border-b border-orange-900">
         <div className={cn("flex items-center gap-2", !isOpen && "justify-center w-full")}>
           <Utensils className="h-6 w-6 text-orange-500" />
-          {isOpen && <span className="text-xl font-bold text-orange-500">Savoria</span>}
+          {isOpen && <span className="text-xl font-bold text-orange-500">DEV OPS</span>}
         </div>
         <Button
           variant="ghost"

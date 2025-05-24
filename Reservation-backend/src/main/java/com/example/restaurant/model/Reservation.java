@@ -22,9 +22,12 @@ public class Reservation {
     
     private LocalDate date;
     private LocalTime heureDebut;
-    private LocalTime heureFin;
     private int nombrePersonnes;
+	private String phone;
+    private String email;
+    private String nom;
     private String statut; // "CONFIRMEE", "ANNULEE", etc.
+	
 	public Long getId() {
 		return id;
 	}
@@ -55,12 +58,7 @@ public class Reservation {
 	public void setHeureDebut(LocalTime heureDebut) {
 		this.heureDebut = heureDebut;
 	}
-	public LocalTime getHeureFin() {
-		return heureFin;
-	}
-	public void setHeureFin(LocalTime heureFin) {
-		this.heureFin = heureFin;
-	}
+
 	public int getNombrePersonnes() {
 		return nombrePersonnes;
 	}
@@ -73,5 +71,25 @@ public class Reservation {
 	public void setStatut(String statut) {
 		this.statut = statut;
 	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	
     
 }

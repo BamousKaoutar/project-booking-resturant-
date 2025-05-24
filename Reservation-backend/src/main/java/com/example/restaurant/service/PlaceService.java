@@ -44,24 +44,14 @@ public class PlaceService {
     // UPDATE
     public PlaceDTO updatePlace(Long id, PlaceDTO placeDTO) {
         Place place = placeRepository.findById(id).orElseThrow(() -> new RuntimeException("Place not found"));
-        place.setNumero(placeDTO.getNumero());
-        place.setDisponible(placeDTO.isDisponible());
+      //  place.setNumero(placeDTO.getNumero());
+      //  place.setDisponible(placeDTO.isDisponible());
         place.setImageUrl(placeDTO.getImageUrl());
 
         place.setLibelle(placeDTO.getLibelle());         // <-- Ajouté
         place.setDescription(placeDTO.getDescription()); // <-- Ajouté
 
-        // Ajouter plusieurs tables à la place
-        if (placeDTO.getTableIds() != null && !placeDTO.getTableIds().isEmpty()) {
-            for (Long tableId : placeDTO.getTableIds()) {
-                RestaurantTable table = restaurantTableRepository.findById(tableId)
-                        .orElseThrow(() -> new RuntimeException("Table not found"));
 
-                place.getTables().add(table);
-                table.setPlace(place);
-                restaurantTableRepository.save(table);
-            }
-        }
 
         place = placeRepository.save(place);
         return PlaceMapper.toDTO(place);
