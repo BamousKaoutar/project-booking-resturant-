@@ -1,6 +1,10 @@
 package com.example.restaurant.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Place {
@@ -9,31 +13,58 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int numero;
+   // private int numero;
+   // private boolean disponible;
+    private String libelle;
+    private String description;
 
-    private boolean disponible;
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)  // Une place peut avoir plusieurs tables
+   // @JsonManagedReference
+    private List<RestaurantTable> tables = new ArrayList<>();  // Liste des tables associées à la place
 
-    @ManyToOne
-    @JoinColumn(name = "table_id")
-    private Table table;
+    private String imageUrl;
 
-    // Getter pour numero
-    public int getNumero() {
-        return numero;
+    // Getters et setters
+    public List<RestaurantTable> getTables() {
+        return tables;
     }
 
-    // Setter pour numero
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setTables(List<RestaurantTable> tables) {
+        this.tables = tables;
     }
 
-    // Getter pour disponible
-    public boolean isDisponible() {
-        return disponible;
+    public Long getId() {
+        return id;
     }
 
-    // Setter pour disponible
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    public void setId(Long id) {
+        this.id = id;
     }
+
+
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+ // Getters et setters
+    public String getLibelle() {
+        return libelle;
+    }
+
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }

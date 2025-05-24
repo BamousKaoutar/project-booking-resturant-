@@ -2,14 +2,17 @@ package com.example.restaurant.mapper;
 
 import com.example.restaurant.dto.ProduitDTO;
 import com.example.restaurant.model.Produit;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.modelmapper.ModelMapper;
 
-@Mapper
-public interface ProduitMapper {
-    ProduitMapper INSTANCE = Mappers.getMapper(ProduitMapper.class);
+public class ProduitMapper {
 
-    ProduitDTO produitToProduitDTO(Produit produit);
+    private static final ModelMapper modelMapper = new ModelMapper();
 
-    Produit produitDTOToProduit(ProduitDTO produitDTO);
+    public static ProduitDTO toDTO(Produit produit) {
+        return modelMapper.map(produit, ProduitDTO.class);
+    }
+
+    public static Produit toEntity(ProduitDTO produitDTO) {
+        return modelMapper.map(produitDTO, Produit.class);
+    }
 }
