@@ -1,148 +1,114 @@
-"use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { AdminLayout } from "@/components/admin-layout"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CalendarDays, Check, Clock, Users, X } from "lucide-react"
-
-// Define types for our data
-interface Reservation {
-  id: string
-  name: string
-  email: string
-  phone: string
-  date: Date
-  time: string
-  guests: number
-  tableId: string
-  status: "confirmed" | "pending" | "cancelled"
-  notes?: string
-}
+import { Reservation, ReservationProvider } from "@/providers/reservation-provider"
 
 export default function ReservationsPage() {
   const [date, setDate] = useState<Date | undefined>(new Date())
-  const [statusFilter, setStatusFilter] = useState<string>("all")
+  const [statutFilter, setstatutFilter] = useState<string>("all")
+  const [reservations, setReservations] = useState<Reservation[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
+  const [selectedReservation,setSelectedReservation] = useState<Reservation | null>()
 
-  // Sample data for reservations
-  const [reservations, setReservations] = useState<Reservation[]>([
-    {
-      id: "r1",
-      name: "John Smith",
-      email: "john@example.com",
-      phone: "555-123-4567",
-      date: new Date(),
-      time: "19:00",
-      guests: 4,
-      tableId: "t3",
-      status: "confirmed",
-      notes: "Anniversary dinner",
-    },
-    {
-      id: "r2",
-      name: "Emily Johnson",
-      email: "emily@example.com",
-      phone: "555-987-6543",
-      date: new Date(),
-      time: "20:00",
-      guests: 2,
-      tableId: "t1",
-      status: "confirmed",
-    },
-    {
-      id: "r3",
-      name: "Michael Brown",
-      email: "michael@example.com",
-      phone: "555-456-7890",
-      date: new Date(Date.now() + 86400000), // Tomorrow
-      time: "18:30",
-      guests: 6,
-      tableId: "t6",
-      status: "pending",
-    },
-    {
-      id: "r4",
-      name: "Sarah Wilson",
-      email: "sarah@example.com",
-      phone: "555-789-0123",
-      date: new Date(Date.now() + 86400000), // Tomorrow
-      time: "19:30",
-      guests: 3,
-      tableId: "t2",
-      status: "confirmed",
-    },
-    {
-      id: "r5",
-      name: "David Lee",
-      email: "david@example.com",
-      phone: "555-321-6547",
-      date: new Date(Date.now() - 86400000), // Yesterday
-      time: "20:00",
-      guests: 2,
-      tableId: "t4",
-      status: "cancelled",
-      notes: "Called to cancel due to illness",
-    },
-  ])
+  // Charger les réservations au chargement du composant
+  useEffect(() => {
+    setLoading(true)
+    ReservationProvider.getReservations()
+      .then((data) => {
+        setReservations(data)
+        setError(null)
+        console.log("data : ",data)
+      })
+      .catch((e) => {
+        setError(e.message || "Erreur lors du chargement des réservations")
+      })
+      .finally(() => setLoading(false))
+  }, [])
 
-  // Function to update reservation status
-  const updateReservationStatus = (id: string, status: "confirmed" | "pending" | "cancelled") => {
-    setReservations(
-      reservations.map((reservation) => (reservation.id === id ? { ...reservation, status } : reservation)),
-    )
+  // Fonction pour mettre à jour le statut
+  const updateReservationstatut = async (id: number, statut: string) => {
+    try {
+      const updated = await ReservationProvider.toggleReservationStatus(id, statut)
+      setReservations((prev) =>
+        prev.map((r) => (r.id === id ? updated : r))
+      )
+    } catch (e) {
+      alert("Erreur lors du changement de statut")
+    }
   }
 
-  // Filter reservations by date
+  // Filtrer par date
   const getReservationsByDate = (date: Date | undefined) => {
     if (!date) return []
-
-    return reservations.filter((reservation) => {
-      const reservationDate = new Date(reservation.date)
+    return reservations.filter((r) => {
+      const reservationDate = new Date(r.date)
       return reservationDate.toDateString() === date.toDateString()
     })
   }
 
-  // Filter reservations by status
-  const filterReservationsByStatus = (reservations: Reservation[]) => {
-    if (statusFilter === "all") return reservations
-    return reservations.filter((reservation) => reservation.status === statusFilter)
+  // Filtrer par statut
+  const filterReservationsBystatut = (list: Reservation[]) => {
+    if (statutFilter === "all") return list
+    return list.filter((r) => r.statut === statutFilter)
   }
 
-  // Get filtered reservations
-  const filteredReservations = filterReservationsByStatus(getReservationsByDate(date))
+  const filteredReservations = filterReservationsBystatut(getReservationsByDate(date))
 
-  // Sort reservations by time
-  const sortedReservations = [...filteredReservations].sort((a, b) => {
-    return a.time.localeCompare(b.time)
-  })
+  const sortedReservations = [...filteredReservations].sort((a, b) =>
+    a.heureDebut.localeCompare(b.heureDebut)
+  )
 
-  // Get upcoming reservations (today and future)
   const upcomingReservations = reservations
-    .filter((reservation) => {
-      const reservationDate = new Date(reservation.date)
+    .filter((r) => {
+      const reservationDate = new Date(r.date)
       const today = new Date()
       today.setHours(0, 0, 0, 0)
-      return reservationDate >= today && reservation.status !== "cancelled"
+      return reservationDate >= today && r.statut !== "cancelled"
     })
     .sort((a, b) => {
-      // Sort by date first, then by time
       const dateA = new Date(a.date)
       const dateB = new Date(b.date)
-      if (dateA.getTime() !== dateB.getTime()) {
-        return dateA.getTime() - dateB.getTime()
-      }
-      return a.time.localeCompare(b.time)
+      return dateA.getTime() !== dateB.getTime()
+        ? dateA.getTime() - dateB.getTime()
+        : a.heureDebut.localeCompare(b.heureDebut)
     })
+
+  if (loading) return <div>Chargement des réservations...</div>
+  if (error) return <div className="text-red-600">{error}</div>
 
   return (
     <AdminLayout>
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold text-orange-950">Reservations</h1>
-          <Button className="bg-orange-500 hover:bg-orange-600">New Reservation</Button>
         </div>
 
         <Tabs defaultValue="calendar">
@@ -159,29 +125,34 @@ export default function ReservationsPage() {
                   <CardDescription>View reservations for a specific date</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border" />
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    className="rounded-md border"
+                  />
 
-                  <div className="mt-4 space-y-2">
-                    <div className="flex justify-between text-sm">
+                  <div className="mt-4 space-y-2 text-sm">
+                    <div className="flex justify-between">
                       <span>Total Reservations:</span>
                       <span className="font-medium">{filteredReservations.length}</span>
                     </div>
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between">
                       <span>Confirmed:</span>
                       <span className="font-medium">
-                        {filteredReservations.filter((r) => r.status === "confirmed").length}
+                        {filteredReservations.filter((r) => r.statut === "confirmed").length}
                       </span>
                     </div>
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between">
                       <span>Pending:</span>
                       <span className="font-medium">
-                        {filteredReservations.filter((r) => r.status === "pending").length}
+                        {filteredReservations.filter((r) => r.statut === "pending").length}
                       </span>
                     </div>
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between">
                       <span>Cancelled:</span>
                       <span className="font-medium">
-                        {filteredReservations.filter((r) => r.status === "cancelled").length}
+                        {filteredReservations.filter((r) => r.statut === "cancelled").length}
                       </span>
                     </div>
                   </div>
@@ -194,16 +165,20 @@ export default function ReservationsPage() {
                     <div>
                       <CardTitle className="text-orange-950">
                         Reservations for{" "}
-                        {date?.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+                        {date?.toLocaleDateString("en-US", {
+                          weekday: "long",
+                          month: "long",
+                          day: "numeric",
+                        })}
                       </CardTitle>
                       <CardDescription>Manage your restaurant bookings</CardDescription>
                     </div>
-                    <Select value={statusFilter} onValueChange={setStatusFilter}>
+                    <Select value={statutFilter} onValueChange={setstatutFilter}>
                       <SelectTrigger className="w-[140px]">
-                        <SelectValue placeholder="Filter by status" />
+                        <SelectValue placeholder="Filter by statut" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">All Statuses</SelectItem>
+                        <SelectItem value="all">All statutes</SelectItem>
                         <SelectItem value="confirmed">Confirmed</SelectItem>
                         <SelectItem value="pending">Pending</SelectItem>
                         <SelectItem value="cancelled">Cancelled</SelectItem>
@@ -218,53 +193,53 @@ export default function ReservationsPage() {
                         <div
                           key={reservation.id}
                           className={`p-4 rounded-lg border ${
-                            reservation.status === "confirmed"
+                            reservation.statut === "confirmed"
                               ? "border-green-500 bg-green-50"
-                              : reservation.status === "pending"
-                                ? "border-yellow-500 bg-yellow-50"
-                                : "border-red-500 bg-red-50"
+                              : reservation.statut === "pending"
+                              ? "border-yellow-500 bg-yellow-50"
+                              : "border-red-500 bg-red-50"
                           }`}
                         >
                           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div>
-                              <h3 className="font-medium">{reservation.name}</h3>
+                              <h3 className="font-medium">{reservation.nom}</h3>
                               <div className="flex flex-col sm:flex-row sm:gap-4 text-sm text-gray-600">
                                 <div className="flex items-center gap-1">
                                   <Clock className="h-3 w-3" />
-                                  <span>{reservation.time}</span>
+                                  <span>{reservation.heureDebut}</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                   <Users className="h-3 w-3" />
-                                  <span>{reservation.guests} guests</span>
+                                  <span>{reservation.nombrePersonnes} guests</span>
                                 </div>
-                                <div>Table #{reservation.tableId.replace("t", "")}</div>
+                                <div>Table #{reservation.tableId}</div>
                               </div>
-                              {reservation.notes && <p className="text-xs italic mt-1">{reservation.notes}</p>}
+                              {/* Si tu as une propriété notes dans Reservation, adapte ici */}
                             </div>
 
                             <div className="flex items-center gap-2">
-                              {reservation.status !== "confirmed" && (
+                              {reservation.statut !== "confirmed" && (
                                 <Button
                                   size="sm"
                                   className="bg-green-500 hover:bg-green-600"
-                                  onClick={() => updateReservationStatus(reservation.id, "confirmed")}
+                                  onClick={() => updateReservationstatut(reservation.id!, "confirmed")}
                                 >
                                   <Check className="mr-1 h-4 w-4" />
                                   Confirm
                                 </Button>
                               )}
-                              {reservation.status !== "cancelled" && (
+                              {reservation.statut !== "cancelled" && (
                                 <Button
                                   size="sm"
                                   variant="outline"
                                   className="border-red-500 text-red-500 hover:bg-red-50"
-                                  onClick={() => updateReservationStatus(reservation.id, "cancelled")}
+                                  onClick={() => updateReservationstatut(reservation.id!, "cancelled")}
                                 >
                                   <X className="mr-1 h-4 w-4" />
                                   Cancel
                                 </Button>
                               )}
-                              <Button size="sm" variant="outline">
+                              <Button size="sm" variant="outline" onClick={() => setSelectedReservation(reservation)}>
                                 Details
                               </Button>
                             </div>
@@ -273,11 +248,7 @@ export default function ReservationsPage() {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-8">
-                      <CalendarDays className="mx-auto h-12 w-12 text-orange-300" />
-                      <h3 className="mt-2 text-lg font-medium text-orange-950">No Reservations</h3>
-                      <p className="text-orange-600">There are no reservations for this date.</p>
-                    </div>
+                    <p>No reservations for this date and filter.</p>
                   )}
                 </CardContent>
               </Card>
@@ -288,7 +259,7 @@ export default function ReservationsPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-orange-950">Upcoming Reservations</CardTitle>
-                <CardDescription>All future bookings at your restaurant</CardDescription>
+                <CardDescription>Next confirmed reservations</CardDescription>
               </CardHeader>
               <CardContent>
                 {upcomingReservations.length > 0 ? (
@@ -296,78 +267,58 @@ export default function ReservationsPage() {
                     {upcomingReservations.map((reservation) => (
                       <div
                         key={reservation.id}
-                        className={`p-4 rounded-lg border ${
-                          reservation.status === "confirmed"
-                            ? "border-green-500 bg-green-50"
-                            : "border-yellow-500 bg-yellow-50"
-                        }`}
+                        className="p-4 rounded-lg border border-gray-300"
                       >
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <h3 className="font-medium">{reservation.nom}</h3>
+                        <div className="flex gap-4 text-sm text-gray-600">
                           <div>
-                            <h3 className="font-medium">{reservation.name}</h3>
-                            <div className="flex flex-col sm:flex-row sm:gap-4 text-sm text-gray-600">
-                              <div className="flex items-center gap-1">
-                                <CalendarDays className="h-3 w-3" />
-                                <span>
-                                  {reservation.date.toLocaleDateString("en-US", {
-                                    weekday: "short",
-                                    month: "short",
-                                    day: "numeric",
-                                  })}
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Clock className="h-3 w-3" />
-                                <span>{reservation.time}</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Users className="h-3 w-3" />
-                                <span>{reservation.guests} guests</span>
-                              </div>
-                              <div>Table #{reservation.tableId.replace("t", "")}</div>
-                            </div>
-                            {reservation.notes && <p className="text-xs italic mt-1">{reservation.notes}</p>}
+                            Date: {new Date(reservation.date).toLocaleDateString()}
                           </div>
-
-                          <div className="flex items-center gap-2">
-                            {reservation.status !== "confirmed" && (
-                              <Button
-                                size="sm"
-                                className="bg-green-500 hover:bg-green-600"
-                                onClick={() => updateReservationStatus(reservation.id, "confirmed")}
-                              >
-                                <Check className="mr-1 h-4 w-4" />
-                                Confirm
-                              </Button>
-                            )}
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="border-red-500 text-red-500 hover:bg-red-50"
-                              onClick={() => updateReservationStatus(reservation.id, "cancelled")}
-                            >
-                              <X className="mr-1 h-4 w-4" />
-                              Cancel
-                            </Button>
-                            <Button size="sm" variant="outline">
-                              Details
-                            </Button>
-                          </div>
+                          <div>Time: {reservation.heureDebut}</div>
+                          <div>Guests: {reservation.nombrePersonnes}</div>
                         </div>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-8">
-                    <CalendarDays className="mx-auto h-12 w-12 text-orange-300" />
-                    <h3 className="mt-2 text-lg font-medium text-orange-950">No Upcoming Reservations</h3>
-                    <p className="text-orange-600">There are no upcoming reservations at this time.</p>
-                  </div>
+                  <p>No upcoming reservations.</p>
                 )}
               </CardContent>
             </Card>
           </TabsContent>
         </Tabs>
+
+
+        <Dialog open={!!selectedReservation} onOpenChange={() => setSelectedReservation(null)}>
+            <DialogContent className="bg-green-50 border-green-200 shadow-lg rounded-lg">
+              <DialogHeader>
+                <DialogTitle>Reservation Details</DialogTitle>
+                <DialogDescription>
+                  Detailed information about the reservation.
+                </DialogDescription>
+              </DialogHeader>
+
+              {selectedReservation && (
+                <div className="space-y-2 text-sm">
+                  <p><strong>Name:</strong> {selectedReservation.nom}</p>
+                  <p><strong>Date:</strong> {new Date(selectedReservation.date).toLocaleDateString()}</p>
+                  <p><strong>Time:</strong> {selectedReservation.heureDebut}</p>
+                  <p><strong>Guests:</strong> {selectedReservation.nombrePersonnes}</p>
+                  <p><strong>Table:</strong> #{selectedReservation.tableId}</p>
+                  <p><strong>Status:</strong> {selectedReservation.statut}</p>
+               
+                </div>
+              )}
+
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button variant="outline">Close</Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+
       </div>
     </AdminLayout>
   )

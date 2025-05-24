@@ -3,6 +3,7 @@ import { ArrowRight, Clock, MapPin, Phone, Utensils } from "lucide-react"
 import MenuHighlights from "@/components/menu-highlights"
 import TestimonialCarousel from "@/components/testimonial-carousel"
 import ReservationCta from "@/components/reservation-cta"
+import imageRest from "@/public/restaurant.jpg"
 import { Link } from "react-router-dom"
 
 export default function Home() {
@@ -12,7 +13,7 @@ export default function Home() {
         <div className="w-[85%] mx-auto py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <Utensils className="h-6 w-6 text-orange-500" />
-            <span className="text-xl font-bold text-orange-500">Savoria</span>
+            <span className="text-xl font-bold text-orange-500">DEV OPS</span>
           </div>
           <nav className="flex gap-6">
             <Link to="/" className="text-orange-950 hover:text-orange-500 font-medium">
@@ -29,10 +30,10 @@ export default function Home() {
             </Link>
           </nav>
           <div className="flex gap-3">
-            <Link to="/reservations/new">
+            <Link to="/reservation">
               <Button className="bg-orange-500 hover:bg-orange-600">Book a Table</Button>
             </Link>
-            <Link to="/admin">
+            <Link to="/login">
               <Button variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50">
                 Admin
               </Button>
@@ -45,7 +46,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/60 z-10" />
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/placeholder.svg?height=1080&width=1920')" }}
+          style={{ backgroundImage: `url(${imageRest})` }}
         />
         <div className="container mx-auto px-4 relative z-20">
           <div className="max-w-2xl text-white">
@@ -59,9 +60,7 @@ export default function Home() {
                   Reserve a Table <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10">
-                <Link to="/menu">View Our Menu</Link>
-              </Button>
+              
             </div>
           </div>
         </div>
@@ -148,11 +147,6 @@ export default function Home() {
       </section>
 
   
-
-      {/* Reservation CTA */}
-      <section className="py-20 bg-amber-50">
-        <ReservationCta />
-      </section>
 
       {/* Location & Contact */}
       <section className="py-20">

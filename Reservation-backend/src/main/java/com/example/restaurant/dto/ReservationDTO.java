@@ -7,9 +7,11 @@ public class ReservationDTO {
     private Long id;
     private LocalDate date;
     private LocalTime heureDebut;
-    private LocalTime heureFin;
     private int nombrePersonnes;
-    private Long clientId;
+    private String phone;
+    private String email;
+    private String nom;
+    private String statut;
     private Long tableId;
 
     public Long getId() {
@@ -36,12 +38,30 @@ public class ReservationDTO {
         this.heureDebut = heureDebut;
     }
 
-    public LocalTime getHeureFin() {
-        return heureFin;
+    
+
+    public String getPhone() {
+        return phone;
     }
 
-    public void setHeureFin(LocalTime heureFin) {
-        this.heureFin = heureFin;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public int getNombrePersonnes() {
@@ -52,13 +72,7 @@ public class ReservationDTO {
         this.nombrePersonnes = nombrePersonnes;
     }
 
-    public Long getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
-    }
+     
 
     public Long getTableId() {
         return tableId;
@@ -67,4 +81,14 @@ public class ReservationDTO {
     public void setTableId(Long tableId) {
         this.tableId = tableId;
     }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+   
 }

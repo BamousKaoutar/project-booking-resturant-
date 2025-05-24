@@ -5,9 +5,6 @@ import java.util.List;
 public class PlaceDTO {
 
     private Long id;
-    private int numero;
-    private boolean disponible;
-    private List<Long> tableIds;  // Liste des IDs des tables
     private String imageUrl;
     private String libelle;
     private String description;
@@ -36,29 +33,7 @@ public class PlaceDTO {
         this.id = id;
     }
 
-    public int getNumero() {
-        return numero;
-    }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
-    }
-
-    public List<Long> getTableIds() {
-        return tableIds;
-    }
-
-    public void setTableIds(List<Long> tableIds) {
-        this.tableIds = tableIds;
-    }
 
     public String getImageUrl() {
         return imageUrl;

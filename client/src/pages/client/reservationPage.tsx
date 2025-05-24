@@ -102,7 +102,7 @@ export default function NewReservationPage() {
         <div className="w-[85%] mx-auto py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <Utensils className="h-6 w-6 text-orange-500" />
-            <span className="text-xl font-bold text-orange-500">Savoria</span>
+            <span className="text-xl font-bold text-orange-500">DEV OPS</span>
           </div>
           <nav className="flex gap-6">
             <Link to="/" className="text-orange-950 hover:text-orange-500 font-medium">
@@ -119,7 +119,7 @@ export default function NewReservationPage() {
             </Link>
           </nav>
           <div>
-            <Link to="/reservations/new">
+            <Link to="/reservation">
               <Button className="bg-orange-500 hover:bg-orange-600">Book a Table</Button>
             </Link>
           </div>
@@ -130,7 +130,7 @@ export default function NewReservationPage() {
         <div className="w-[85%] max-w-3xl mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-orange-950 mb-2">Reserve Your Table</h1>
-            <p className="text-orange-900">Book your dining experience at Savoria and enjoy our exquisite cuisine.</p>
+            <p className="text-orange-900">Book your dining experience at DEV OPS and enjoy our exquisite cuisine.</p>
           </div>
 
           {!isSuccess ? (
@@ -365,7 +365,7 @@ export default function NewReservationPage() {
                 </div>
                 <h2 className="text-2xl font-bold text-orange-950 mb-2">Reservation Confirmed!</h2>
                 <p className="text-orange-900 mb-6">
-                  Thank you for choosing Savoria. We look forward to serving you on {date ? format(date, "PPP") : ""} at{" "}
+                  Thank you for choosing DEV OPS. We look forward to serving you on {date ? format(date, "PPP") : ""} at{" "}
                   {time}.
                 </p>
                 <div className="bg-orange-100 p-4 rounded-lg mb-6 max-w-md mx-auto">
@@ -406,7 +406,7 @@ export default function NewReservationPage() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Utensils className="h-6 w-6 text-orange-500" />
-                <span className="text-xl font-bold text-orange-500">Savoria</span>
+                <span className="text-xl font-bold text-orange-500">DEV OPS</span>
               </div>
               <p>Exquisite dining experience in the heart of the city.</p>
             </div>
@@ -424,7 +424,7 @@ export default function NewReservationPage() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/reservations/new" className="hover:text-orange-500">
+                  <Link to="/reservation" className="hover:text-orange-500">
                     Reservations
                   </Link>
                 </li>
@@ -445,7 +445,7 @@ export default function NewReservationPage() {
             </div>
           </div>
           <div className="border-t border-orange-900 mt-8 pt-8 text-center">
-            <p>&copy; {new Date().getFullYear()} Savoria Restaurant. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} DEV OPS Restaurant. All rights reserved.</p>
           </div>
         </div>
       </footer>

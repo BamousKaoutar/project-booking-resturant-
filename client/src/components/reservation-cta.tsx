@@ -1,7 +1,5 @@
-"use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -12,14 +10,13 @@ import { cn } from "@/lib/utils"
 // import { motion } from "framer-motion"
 
 export default function ReservationCta() {
-  const router = useRouter()
   const [date, setDate] = useState<Date>()
   const [time, setTime] = useState<string>("")
   const [guests, setGuests] = useState<string>("")
 
   const handleReservation = () => {
     // In a real app, we would pass these values to the reservation page
-    router.push("/reservation")
+   // router.push("/reservation")
   }
 
   const availableTimes = [

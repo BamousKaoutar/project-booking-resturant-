@@ -3,17 +3,25 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdminDashboard from "./pages/admin/dashboardPage";
 import MenuPage from "./pages/admin/menuPage";
 import TablesPage from "./pages/admin/tablePage";
+import Home from "./app/page";
+import Menu from "./pages/client/menuPage";
+import NewReservationPage from "./pages/client/reservationPage";
+import ReservationsPage from "./pages/admin/resirvationPage";
+import LoginPage from "./pages/Login";
 
 
 const App: React.FC = () => {
   return (
     <Router>
           <Routes>
-            
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/reservation" element={<NewReservationPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="admin/menu" element={<MenuPage />} />
             <Route path="admin/tables" element={<TablesPage />} /> 
-
+            <Route path="admin/reservations" element={<ReservationsPage />} />
             
           </Routes>
        </Router> 
